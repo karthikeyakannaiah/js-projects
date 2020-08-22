@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Timer </title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+
+<body>
+<input type="number" id="numberr" min=1 max=60 name="" placeholder="Minutes">
+<button onclick="pomodoro()">pomodoro</button>
+<button id="reset">reset</button>
+<h1 id="count2">pomodoro</h1>
+<script>
+var resetbutton = document.getElementById("reset");
+var num = document.getElementById("numberr").value;
+var countdown = 30;
+var timerId = null;
+function pomodoro(){
+	document.getElementById("numberr").disabled = true;
+	var resetbutton = document.getElementById("reset");
+	var num = document.getElementById("numberr").value;
+	var countdown = num * 60 * 1000;
+	var timerId = setInterval(function(){
+	  countdown -= 1000;
+	  var min = Math.floor(countdown / (60 * 1000));
+	  var sec = Math.floor((countdown - (min * 60 * 1000)) / 1000);
+	  //resetbutton.addEventListener('click',pomodoro());
+	  resetbutton.addEventListener('click',function(){
+			clearInterval(timerId);
+			console.log(timerId);
+			document.getElementById("count2").innerHTML ="pomodoro";
+			document.getElementById("numberr").disabled = false;
+		});
+	  if (countdown <= 0) {
+	     alert("30 min!");
+
+	     clearInterval(timerId);
+	     document.getElementById("numberr").disabled = false;
+	  }
+	  else {
+	     document.getElementById("count2").innerHTML =min + " : " + sec;
+	  }
+
+	}, 1000);
+}
+
+
+</script>
+</body>
+</html>
